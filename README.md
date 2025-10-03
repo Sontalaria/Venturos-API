@@ -43,12 +43,7 @@ src/
 
 2. Instale as dependências:
    npm install
-
-3. Crie o arquivo .env:
-   PORT=3000
-   NODE_ENV=development
-   SQLITE_STORAGE=./database.sqlite
-
+   
 4. Rode a API:
    npm run dev   # com nodemon
    # ou
