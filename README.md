@@ -47,7 +47,7 @@ src/
 3. Rode a API:
    npm run dev   # com nodemon
    # ou
-   npm start
+   npm start 
 
 A API estará disponível em: http://localhost:3000/api
 
