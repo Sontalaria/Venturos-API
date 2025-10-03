@@ -33,7 +33,6 @@ src/
 - Express
 - Sequelize
 - SQLite
-- dotenv
 - nodemon (dev)
 
 ## Como Rodar o Projeto
