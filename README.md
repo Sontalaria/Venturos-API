@@ -44,7 +44,7 @@ src/
 2. Instale as dependências:
    npm install
    
-4. Rode a API:
+3. Rode a API:
    npm run dev   # com nodemon
    # ou
    npm start
