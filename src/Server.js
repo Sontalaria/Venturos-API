@@ -2,6 +2,7 @@ import app from './app.js';
 import { sequelize } from './models/index.js';
 
 const PORT = process.env.PORT || 3000;
+const HOST = process.env.HOST || 'localhost';
 
 (async () => {
   try {
