@@ -1,21 +1,31 @@
-import { DataTypes } from 'sequelize';
+import supabase from '../config/supabaseClient.js';
 
-export default (sequelize) => {
-  const PedidoAdocao = sequelize.define('PedidoAdocao', {
-    id: {
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4,
-      primaryKey: true,
-      allowNull: false
-    },
-    status: { type: DataTypes.STRING, defaultValue: 'em_analise', allowNull: false },
-    posicao_fila: { type: DataTypes.INTEGER, allowNull: true },
-    usuarioId: { type: DataTypes.UUID, allowNull: false },
-    animalId: { type: DataTypes.UUID, allowNull: false }
-  }, {
-    tableName: 'pedidos_adocao',
-    timestamps: true
-  });
+export async function getAllPedidosAdocao() {
+  const { data, error } = await supabase.from('pedidos_adocao').select('*');
+  if (error) throw error;
+  return data;
+}
 
-  return PedidoAdocao;
-};
+export async function getPedidoAdocaoById(id) {
+  const { data, error } = await supabase.from('pedidos_adocao').select('*').eq('id', id).single();
+  if (error) throw error;
+  return data;
+}
+
+export async function insertPedidoAdocao(payload) {
+  const { data, error } = await supabase.from('pedidos_adocao').insert([payload]).select();
+  if (error) throw error;
+  return data;
+}
+
+export async function updatePedidoAdocao(id, payload) {
+  const { data, error } = await supabase.from('pedidos_adocao').update(payload).eq('id', id).select();
+  if (error) throw error;
+  return data;
+}
+
+export async function removePedidoAdocao(id) {
+  const { data, error } = await supabase.from('pedidos_adocao').delete().eq('id', id).select();
+  if (error) throw error;
+  return data;
+}

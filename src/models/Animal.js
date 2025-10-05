@@ -1,50 +1,31 @@
-import { DataTypes } from 'sequelize';
+import supabase from '../config/supabaseClient.js';
 
-export default (sequelize) => {
-    return sequelize.define('Animal', {
-        id: {
-            type: DataTypes.UUID,
-            defaultValue: DataTypes.UUIDV4,
-            primaryKey: true,
-            allowNull: false
-        },
-        nome: { 
-            type: DataTypes.STRING,
-            allowNull: false 
-        },
-        especie: { 
-            type: DataTypes.STRING, 
-            allowNull: false 
-        },
-        porte: { 
-            type: DataTypes.STRING, 
-            allowNull: false 
-        },
-        castrado: { 
-            type: DataTypes.BOOLEAN, 
-            allowNull: false, 
-            defaultValue: false 
-        },
-        vacinado: { 
-            type: DataTypes.BOOLEAN, 
-            allowNull: false, 
-            defaultValue: false 
-        },
-        adotado: { 
-            type: DataTypes.BOOLEAN, 
-            allowNull: false, 
-            defaultValue: false
-        },
-        descricao: { 
-            type: DataTypes.STRING, 
-            allowNull: false 
-        },
-        foto: { 
-            type: DataTypes.BLOB('long'),
-            allowNull: true
-        }
-    }, {
-        tableName: 'animais',
-        timestamps: true,
-    });
-};
+export async function getAllAnimals() {
+    const { data, error } = await supabase.from('animals').select('*');
+    if (error) throw error;
+    return data;
+}
+
+export async function getAnimalById(id) {
+    const { data, error } = await supabase.from('animals').select('*').eq('id', id).single();
+    if (error) throw error;
+    return data;
+}
+
+export async function insertAnimal(payload) {
+    const { data, error } = await supabase.from('animals').insert([payload]).select();
+    if (error) throw error;
+    return data;
+}
+
+export async function updateAnimal(id, payload) {
+    const { data, error } = await supabase.from('animals').update(payload).eq('id', id).select();
+    if (error) throw error;
+    return data;
+}
+
+export async function removeAnimal(id) {
+    const { data, error } = await supabase.from('animals').delete().eq('id', id).select();
+    if (error) throw error;
+    return data;
+}

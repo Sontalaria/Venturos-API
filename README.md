@@ -31,9 +31,10 @@ src/
 ## Tecnologias Utilizadas
 - Node.js
 - Express
-- Sequelize
+- Supabase
 - SQLite
 - nodemon (dev)
+- dotenv 
 
 ## Como Rodar o Projeto
 1. Clone o repositório:

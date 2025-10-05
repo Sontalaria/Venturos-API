@@ -6,6 +6,7 @@ const router = express.Router();
 
 router.get('/', animalController.getAll);
 router.get('/:id', animalController.getById);
+router.get('/:id/detalhes', animalController.getAnimalDetalhes);
 router.post('/', animalController.create);
 router.put('/:id', animalController.update);
 router.delete('/:id', animalController.remove);

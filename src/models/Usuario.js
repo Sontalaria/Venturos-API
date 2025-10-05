@@ -1,32 +1,31 @@
-import { DataTypes } from 'sequelize';
+import supabase from '../config/supabaseClient.js';
 
-export default (sequelize) => {
-  const Usuario = sequelize.define('Usuario', {
-    id: {
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4,
-      primaryKey: true,
-      allowNull: false
-    },
-    nome_completo: { type: DataTypes.STRING, allowNull: false },
-    email: { type: DataTypes.STRING, allowNull: false, unique: true },
-    senha: { type: DataTypes.STRING, allowNull: false },
-    cidade: { type: DataTypes.STRING, allowNull: false },
-    estado: { type: DataTypes.STRING, allowNull: false },
-    idade: { type: DataTypes.INTEGER, allowNull: false },
-    telefone: { type: DataTypes.STRING, allowNull: false },
-    celular: { type: DataTypes.STRING, allowNull: true },
-    cpf: { type: DataTypes.STRING, allowNull: true, unique: true },
-    endereco: { type: DataTypes.STRING, allowNull: true },
-    bairro: { type: DataTypes.STRING, allowNull: true },
-    cep: { type: DataTypes.INTEGER, allowNull: true },
-    instagram: { type: DataTypes.STRING, allowNull: true },
-    facebook: { type: DataTypes.STRING, allowNull: true },
-    administrador: { type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false }
-  }, {
-    tableName: 'usuarios',
-    timestamps: true
-  });
+export async function getAllUsuarios() {
+  const { data, error } = await supabase.from('usuarios').select('*');
+  if (error) throw error;
+  return data;
+}
 
-  return Usuario;
-};
+export async function getUsuarioById(id) {
+  const { data, error } = await supabase.from('usuarios').select('*').eq('id', id).single();
+  if (error) throw error;
+  return data;
+}
+
+export async function insertUsuario(payload) {
+  const { data, error } = await supabase.from('usuarios').insert([payload]).select();
+  if (error) throw error;
+  return data;
+}
+
+export async function updateUsuario(id, payload) {
+  const { data, error } = await supabase.from('usuarios').update(payload).eq('id', id).select();
+  if (error) throw error;
+  return data;
+}
+
+export async function removeUsuario(id) {
+  const { data, error } = await supabase.from('usuarios').delete().eq('id', id).select();
+  if (error) throw error;
+  return data;
+}

@@ -1,22 +1,31 @@
-import { DataTypes } from 'sequelize';
+import supabase from '../config/supabaseClient.js';
 
-export default (sequelize) => {
-  const Doacao = sequelize.define('Doacao', {
-    id: {
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4,
-      primaryKey: true,
-      allowNull: false
-    },
-    nome: { type: DataTypes.STRING, allowNull: false },
-    email: { type: DataTypes.STRING, allowNull: true },
-    valor: { type: DataTypes.FLOAT, allowNull: false },
-    linkPix: { type: DataTypes.STRING, allowNull: false },
-    mensagem: { type: DataTypes.STRING, allowNull: false }
-  }, {
-    tableName: 'doacoes',
-    timestamps: true
-  });
+export async function getAllDoacoes() {
+  const { data, error } = await supabase.from('doacoes').select('*');
+  if (error) throw error;
+  return data;
+}
 
-  return Doacao;
-};
+export async function getDoacaoById(id) {
+  const { data, error } = await supabase.from('doacoes').select('*').eq('id', id).single();
+  if (error) throw error;
+  return data;
+}
+
+export async function insertDoacao(payload) {
+  const { data, error } = await supabase.from('doacoes').insert([payload]).select();
+  if (error) throw error;
+  return data;
+}
+
+export async function updateDoacao(id, payload) {
+  const { data, error } = await supabase.from('doacoes').update(payload).eq('id', id).select();
+  if (error) throw error;
+  return data;
+}
+
+export async function removeDoacao(id) {
+  const { data, error } = await supabase.from('doacoes').delete().eq('id', id).select();
+  if (error) throw error;
+  return data;
+}
