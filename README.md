@@ -1,3 +1,7 @@
+Feito Por:
+Kennay Vansan
+João Canazza
+
 # API de Adoção e Tutoria de Animais
 API RESTful desenvolvida em **Node.js** com **Express**, **Sequelize** e **SQLite** para gerenciar animais disponíveis para adoção, usuários/tutores, pedidos de adoção, doações e questionários de perfil.
 
